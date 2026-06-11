@@ -24,10 +24,10 @@
       "type": "n8n-nodes-base.set",
       "typeVersion": 3.4,
       "position": [
-        400,
-        0
+        -1072,
+        272
       ],
-      "id": "4b01cb74-ba44-4938-af38-1bd90c7cdd44",
+      "id": "6f002b01-9537-4b41-bd39-9fa2d3adebd5",
       "name": "Extract Lat Long"
     },
     {
@@ -39,10 +39,10 @@
       "type": "@n8n/n8n-nodes-langchain.chatTrigger",
       "typeVersion": 1.4,
       "position": [
-        0,
-        0
+        -1648,
+        272
       ],
-      "id": "df0f7010-0043-45ae-a383-9901cd8790b4",
+      "id": "00bb78c5-fb8b-4b46-9b43-9fd0f1fa4f84",
       "name": "When chat message received",
       "webhookId": "d3848e6c-a0ab-4718-bd21-8a59720cf596"
     },
@@ -55,10 +55,10 @@
       "type": "n8n-nodes-base.merge",
       "typeVersion": 3.2,
       "position": [
-        1056,
-        -80
+        -416,
+        192
       ],
-      "id": "5184232a-4771-497f-a9da-fe33f79e0f8c",
+      "id": "c7f70924-7f5c-4d11-9044-d9be3910ae48",
       "name": "Merge"
     },
     {
@@ -66,10 +66,10 @@
       "type": "n8n-nodes-base.noOp",
       "typeVersion": 1,
       "position": [
-        352,
-        -128
+        -1120,
+        144
       ],
-      "id": "d90e8ff6-c2ef-4f7f-a5cd-6fb12184222e",
+      "id": "31caae22-8dbd-4709-bbf5-e477317f542b",
       "name": "No Operation, do nothing"
     },
     {
@@ -80,10 +80,10 @@
       "type": "n8n-nodes-base.splitOut",
       "typeVersion": 1,
       "position": [
-        80,
-        -192
+        -1600,
+        80
       ],
-      "id": "b361c67f-45bf-4a11-b966-701bba9dda9a",
+      "id": "caf31abf-7c28-4274-bb1c-4b2fed641fef",
       "name": "Split Out"
     },
     {
@@ -113,10 +113,10 @@
       "type": "n8n-nodes-base.if",
       "typeVersion": 2.3,
       "position": [
-        1264,
-        -80
+        -208,
+        192
       ],
-      "id": "5a3d445c-8615-46a8-915f-6e7fafb38086",
+      "id": "00ffe1c3-5243-4c41-a481-b6df30505bc5",
       "name": "Tem 30"
     },
     {
@@ -147,10 +147,10 @@
       "type": "n8n-nodes-base.if",
       "typeVersion": 2.3,
       "position": [
-        1472,
-        -176
+        0,
+        96
       ],
-      "id": "45882ec3-1f60-434b-9e9d-bee4b5d5f2a1",
+      "id": "fc8eca80-ab21-423a-8bdd-c45d905193ed",
       "name": "tem 22"
     },
     {
@@ -161,10 +161,10 @@
       "type": "@n8n/n8n-nodes-langchain.chat",
       "typeVersion": 1.3,
       "position": [
-        1472,
-        16
+        0,
+        288
       ],
-      "id": "d89d6f4d-5a98-41e8-8aa2-1a964ba108b0",
+      "id": "0d72b869-66e7-4238-862c-2e006e247f19",
       "name": "HOT",
       "webhookId": "d4be02d8-6266-4893-953a-392ee45a4c4c"
     },
@@ -176,10 +176,10 @@
       "type": "@n8n/n8n-nodes-langchain.chat",
       "typeVersion": 1.3,
       "position": [
-        1680,
-        -80
+        208,
+        192
       ],
-      "id": "47f364d6-8f2e-4411-ab1e-eb3c2eef5afe",
+      "id": "6279a216-8e10-4421-8ec7-78212b534b34",
       "name": "NICE",
       "webhookId": "907c196e-8b1e-4b49-a885-575dd5253e50"
     },
@@ -191,10 +191,10 @@
       "type": "@n8n/n8n-nodes-langchain.chat",
       "typeVersion": 1.3,
       "position": [
-        1680,
-        -272
+        208,
+        0
       ],
-      "id": "22894d51-ba95-4046-ac07-77744b54ae14",
+      "id": "a98e6d8a-bd61-4c4d-9dfb-bf8a6a338b99",
       "name": "Chilly",
       "webhookId": "fd7a74d0-051b-4c51-8315-be03c13fe2d3"
     },
@@ -206,24 +206,24 @@
       "type": "n8n-nodes-base.httpRequest",
       "typeVersion": 4.4,
       "position": [
-        896,
-        0
+        -576,
+        272
       ],
-      "id": "ce4e4b61-45d6-4781-8e5e-d242e0f37180",
+      "id": "2ba27a66-3c8d-4926-9386-cb7570a5666f",
       "name": "Get Weather"
     },
     {
       "parameters": {
-        "url": "=https://geocoding-api.open-meteo.com/v1/search?name={{ $json.chatInput }}",
+        "url": "=https://geocoding-api.open-meteo.com/v1/search?name={{ $json.responseData.translatedText }}",
         "options": {}
       },
       "type": "n8n-nodes-base.httpRequest",
       "typeVersion": 4.4,
       "position": [
-        208,
-        0
+        -1264,
+        272
       ],
-      "id": "b71f9854-3103-4fce-9c61-83bd48acae73",
+      "id": "86434ec9-194f-41aa-a34e-5c15f3441919",
       "name": "GetLocationData",
       "onError": "continueRegularOutput"
     },
@@ -265,11 +265,25 @@
       "type": "n8n-nodes-base.if",
       "typeVersion": 2.3,
       "position": [
-        608,
-        0
+        -864,
+        272
       ],
-      "id": "9bd44745-dd33-457d-a32f-750fe464e887",
+      "id": "a66b7c6b-496a-4a28-9ada-089189986de1",
       "name": "If"
+    },
+    {
+      "parameters": {
+        "url": "=https://api.mymemory.translated.net/get?q={{ $json.chatInput }}&langpair=ja|en",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.4,
+      "position": [
+        -1472,
+        288
+      ],
+      "id": "3ef01ad6-9678-4e71-9855-7e6ecdd5936e",
+      "name": "Japan into English Translated"
     },
     {
       "parameters": {
@@ -279,11 +293,11 @@
       "type": "@n8n/n8n-nodes-langchain.chat",
       "typeVersion": 1.3,
       "position": [
-        864,
-        144
+        -608,
+        416
       ],
-      "id": "aefb9b8b-09c4-4368-9850-ae3140c52182",
-      "name": "Chat",
+      "id": "0ce86bcb-34e1-4655-87c6-d269e08fcc72",
+      "name": "Error Message",
       "webhookId": "f48d9772-3fe0-4a02-ba16-0b8940111235",
       "onError": "continueErrorOutput"
     }
@@ -305,12 +319,12 @@
       "main": [
         [
           {
-            "node": "GetLocationData",
+            "node": "Split Out",
             "type": "main",
             "index": 0
           },
           {
-            "node": "Split Out",
+            "node": "Japan into English Translated",
             "type": "main",
             "index": 0
           }
@@ -419,7 +433,18 @@
         ],
         [
           {
-            "node": "Chat",
+            "node": "Error Message",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Japan into English Translated": {
+      "main": [
+        [
+          {
+            "node": "GetLocationData",
             "type": "main",
             "index": 0
           }
@@ -432,10 +457,10 @@
     "executionOrder": "v1",
     "binaryMode": "separate"
   },
-  "versionId": "ac3186d8-74c6-418c-8446-77a20a3749ec",
+  "versionId": "35b2039f-e77c-4f99-a0e2-4786a9b2e415",
   "meta": {
     "instanceId": "7f75f12e74f98852ac6c5825f11fcf353d8a19d0b60bed9ada34a4ab41f85b93"
   },
-  "id": "WdIE9PHkGYwnZD9g",
+  "id": "Ll4wEQChKq6HWUAR",
   "tags": []
 }
