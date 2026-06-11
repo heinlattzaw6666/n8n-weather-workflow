@@ -39,4 +39,4 @@ This project is part of my **"Learning by Doing"** workflow. Instead of just rea
 Feel free to explore the code. If you have any suggestions for optimizing this workflow or want to discuss AI-driven automation, I would love to connect!
 
 * **Student Major**: Artificial Intelligence
-* **GitHub**: [Your GitHub Profile Link]
+* **GitHub**: [HEIN LATT ZAW]
