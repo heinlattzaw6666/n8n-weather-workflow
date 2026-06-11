@@ -1,0 +1,441 @@
+{
+  "name": "Weather Forecast",
+  "nodes": [
+    {
+      "parameters": {
+        "assignments": {
+          "assignments": [
+            {
+              "id": "27dd008b-db98-49e2-8800-231c960abad8",
+              "name": "lat",
+              "value": "={{ $json.results[0].latitude }}",
+              "type": "number"
+            },
+            {
+              "id": "de9b8839-b43d-44be-8590-c8d53f6823f0",
+              "name": "long",
+              "value": "={{ $json.results[0].longitude }}",
+              "type": "number"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 3.4,
+      "position": [
+        400,
+        0
+      ],
+      "id": "4b01cb74-ba44-4938-af38-1bd90c7cdd44",
+      "name": "Extract Lat Long"
+    },
+    {
+      "parameters": {
+        "options": {
+          "responseMode": "responseNodes"
+        }
+      },
+      "type": "@n8n/n8n-nodes-langchain.chatTrigger",
+      "typeVersion": 1.4,
+      "position": [
+        0,
+        0
+      ],
+      "id": "df0f7010-0043-45ae-a383-9901cd8790b4",
+      "name": "When chat message received",
+      "webhookId": "d3848e6c-a0ab-4718-bd21-8a59720cf596"
+    },
+    {
+      "parameters": {
+        "mode": "combine",
+        "combineBy": "combineByPosition",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.merge",
+      "typeVersion": 3.2,
+      "position": [
+        1056,
+        -80
+      ],
+      "id": "5184232a-4771-497f-a9da-fe33f79e0f8c",
+      "name": "Merge"
+    },
+    {
+      "parameters": {},
+      "type": "n8n-nodes-base.noOp",
+      "typeVersion": 1,
+      "position": [
+        352,
+        -128
+      ],
+      "id": "d90e8ff6-c2ef-4f7f-a5cd-6fb12184222e",
+      "name": "No Operation, do nothing"
+    },
+    {
+      "parameters": {
+        "fieldToSplitOut": "chatInput",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.splitOut",
+      "typeVersion": 1,
+      "position": [
+        80,
+        -192
+      ],
+      "id": "b361c67f-45bf-4a11-b966-701bba9dda9a",
+      "name": "Split Out"
+    },
+    {
+      "parameters": {
+        "conditions": {
+          "options": {
+            "caseSensitive": true,
+            "leftValue": "",
+            "typeValidation": "strict",
+            "version": 3
+          },
+          "conditions": [
+            {
+              "id": "963333f0-11db-4ba5-af9d-b64ff7ea261e",
+              "leftValue": "={{ $json.current.temperature_2m }}",
+              "rightValue": 32,
+              "operator": {
+                "type": "number",
+                "operation": "lt"
+              }
+            }
+          ],
+          "combinator": "and"
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.if",
+      "typeVersion": 2.3,
+      "position": [
+        1264,
+        -80
+      ],
+      "id": "5a3d445c-8615-46a8-915f-6e7fafb38086",
+      "name": "Tem 30"
+    },
+    {
+      "parameters": {
+        "conditions": {
+          "options": {
+            "caseSensitive": true,
+            "leftValue": "",
+            "typeValidation": "strict",
+            "version": 3
+          },
+          "conditions": [
+            {
+              "id": "11ffa45f-0660-4dd2-853c-1cf6339d8519",
+              "leftValue": " {{ $json.current.temperature_2m }",
+              "rightValue": "",
+              "operator": {
+                "type": "string",
+                "operation": "equals",
+                "name": "filter.operator.equals"
+              }
+            }
+          ],
+          "combinator": "and"
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.if",
+      "typeVersion": 2.3,
+      "position": [
+        1472,
+        -176
+      ],
+      "id": "45882ec3-1f60-434b-9e9d-bee4b5d5f2a1",
+      "name": "tem 22"
+    },
+    {
+      "parameters": {
+        "message": "=Too Hot in \"{{ $json.chatInput }}\"!",
+        "options": {}
+      },
+      "type": "@n8n/n8n-nodes-langchain.chat",
+      "typeVersion": 1.3,
+      "position": [
+        1472,
+        16
+      ],
+      "id": "d89d6f4d-5a98-41e8-8aa2-1a964ba108b0",
+      "name": "HOT",
+      "webhookId": "d4be02d8-6266-4893-953a-392ee45a4c4c"
+    },
+    {
+      "parameters": {
+        "message": "=Nice Weather in \"{{ $json.chatInput }}\"!",
+        "options": {}
+      },
+      "type": "@n8n/n8n-nodes-langchain.chat",
+      "typeVersion": 1.3,
+      "position": [
+        1680,
+        -80
+      ],
+      "id": "47f364d6-8f2e-4411-ab1e-eb3c2eef5afe",
+      "name": "NICE",
+      "webhookId": "907c196e-8b1e-4b49-a885-575dd5253e50"
+    },
+    {
+      "parameters": {
+        "message": "=Chilly in \"{{ $json.chatInput }}\"!",
+        "options": {}
+      },
+      "type": "@n8n/n8n-nodes-langchain.chat",
+      "typeVersion": 1.3,
+      "position": [
+        1680,
+        -272
+      ],
+      "id": "22894d51-ba95-4046-ac07-77744b54ae14",
+      "name": "Chilly",
+      "webhookId": "fd7a74d0-051b-4c51-8315-be03c13fe2d3"
+    },
+    {
+      "parameters": {
+        "url": "=https://api.open-meteo.com/v1/forecast?latitude={{$json.lat}}&longitude={{$json.long}}&current=temperature_2m,relative_humidity_2m,weather_code",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.4,
+      "position": [
+        896,
+        0
+      ],
+      "id": "ce4e4b61-45d6-4781-8e5e-d242e0f37180",
+      "name": "Get Weather"
+    },
+    {
+      "parameters": {
+        "url": "=https://geocoding-api.open-meteo.com/v1/search?name={{ $json.chatInput }}",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.4,
+      "position": [
+        208,
+        0
+      ],
+      "id": "b71f9854-3103-4fce-9c61-83bd48acae73",
+      "name": "GetLocationData",
+      "onError": "continueRegularOutput"
+    },
+    {
+      "parameters": {
+        "conditions": {
+          "options": {
+            "caseSensitive": true,
+            "leftValue": "",
+            "typeValidation": "strict",
+            "version": 3
+          },
+          "conditions": [
+            {
+              "id": "b7f618f1-68c7-4543-8f6c-c5faf698b957",
+              "leftValue": "={{ $json.lat }}",
+              "rightValue": "",
+              "operator": {
+                "type": "number",
+                "operation": "exists",
+                "singleValue": true
+              }
+            },
+            {
+              "id": "44944c9c-6d24-4c13-8573-abff856975c0",
+              "leftValue": "={{ $json.long }}",
+              "rightValue": "",
+              "operator": {
+                "type": "number",
+                "operation": "exists",
+                "singleValue": true
+              }
+            }
+          ],
+          "combinator": "and"
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.if",
+      "typeVersion": 2.3,
+      "position": [
+        608,
+        0
+      ],
+      "id": "9bd44745-dd33-457d-a32f-750fe464e887",
+      "name": "If"
+    },
+    {
+      "parameters": {
+        "message": "=\"{{ $('When chat message received').item.json.chatInput }}\" city does not exit! ",
+        "options": {}
+      },
+      "type": "@n8n/n8n-nodes-langchain.chat",
+      "typeVersion": 1.3,
+      "position": [
+        864,
+        144
+      ],
+      "id": "aefb9b8b-09c4-4368-9850-ae3140c52182",
+      "name": "Chat",
+      "webhookId": "f48d9772-3fe0-4a02-ba16-0b8940111235",
+      "onError": "continueErrorOutput"
+    }
+  ],
+  "pinData": {},
+  "connections": {
+    "Extract Lat Long": {
+      "main": [
+        [
+          {
+            "node": "If",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "When chat message received": {
+      "main": [
+        [
+          {
+            "node": "GetLocationData",
+            "type": "main",
+            "index": 0
+          },
+          {
+            "node": "Split Out",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Merge": {
+      "main": [
+        [
+          {
+            "node": "Tem 30",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "No Operation, do nothing": {
+      "main": [
+        [
+          {
+            "node": "Merge",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Split Out": {
+      "main": [
+        [
+          {
+            "node": "No Operation, do nothing",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Tem 30": {
+      "main": [
+        [
+          {
+            "node": "tem 22",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "HOT",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "tem 22": {
+      "main": [
+        [
+          {
+            "node": "Chilly",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "NICE",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Get Weather": {
+      "main": [
+        [
+          {
+            "node": "Merge",
+            "type": "main",
+            "index": 1
+          }
+        ]
+      ]
+    },
+    "GetLocationData": {
+      "main": [
+        [
+          {
+            "node": "Extract Lat Long",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "If": {
+      "main": [
+        [
+          {
+            "node": "Get Weather",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "Chat",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "active": false,
+  "settings": {
+    "executionOrder": "v1",
+    "binaryMode": "separate"
+  },
+  "versionId": "ac3186d8-74c6-418c-8446-77a20a3749ec",
+  "meta": {
+    "instanceId": "7f75f12e74f98852ac6c5825f11fcf353d8a19d0b60bed9ada34a4ab41f85b93"
+  },
+  "id": "WdIE9PHkGYwnZD9g",
+  "tags": []
+}
